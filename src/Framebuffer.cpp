@@ -13,6 +13,7 @@ Framebuffer::SetPixel(int x, int y, const Color &color)
     if (x < 0 || x >= m_width || y < 0 || y >= m_height)
         return;
 
+    // Map 2D in 1D Vector
     int index = y * m_width + x;
     m_pixels[index] = color;
 }
