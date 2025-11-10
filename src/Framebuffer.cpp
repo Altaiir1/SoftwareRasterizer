@@ -26,3 +26,13 @@ void Framebuffer::Clear(const Color &color)
         pixel = color;
     }
 }
+
+int Framebuffer::GetHeight() const
+{
+    return m_height;
+}
+
+int Framebuffer::GetWidth() const
+{
+    return m_width;
+}
