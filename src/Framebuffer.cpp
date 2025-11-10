@@ -1,3 +1,6 @@
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "stb_image_write.h"
+
 #include "Framebuffer.h"
 
 Framebuffer::Framebuffer(int width, int height) : m_width(width), m_height(height)
@@ -35,4 +38,14 @@ int Framebuffer::GetHeight() const
 int Framebuffer::GetWidth() const
 {
     return m_width;
+}
+
+bool Framebuffer::SaveToPNG(const char *filename)
+{
+    // Call library function with needed parameters
+    // data() converts vector to C-Style pointer to the array, since it is a C Library
+    int result = stbi_write_png(filename, m_width, m_height, 4, m_pixels.data(), m_width * 4);
+
+    // Return true if successful, false otherwise
+    return result != 0;
 }
