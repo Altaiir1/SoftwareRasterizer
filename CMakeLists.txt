@@ -19,6 +19,7 @@ include_directories(${PROJECT_SOURCE_DIR}/external)
 # Source files
 set(SOURCES
     src/main.cpp
+    src/Framebuffer.cpp
 )
 
 # Create executable
