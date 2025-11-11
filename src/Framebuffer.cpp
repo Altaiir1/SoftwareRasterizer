@@ -21,6 +21,51 @@ void Framebuffer::SetPixel(int x, int y, const Color &color)
     m_pixels[index] = color;
 }
 
+void Framebuffer::DrawLine(int x0, int y0, int x1, int y1, const Color &color)
+{
+    // Calculate deltas
+    int dx = abs(x1 - x0);
+    int dy = abs(y1 - y0);
+
+    // Determine step direction for x and y
+    int sx = (x0 < x1) ? 1 : -1; // 1 if going right, -1 if going left
+    int sy = (y0 < y1) ? 1 : -1; // 1 if going down, -1 if going up
+
+    // Initialize error term
+    int error = dx - dy;
+
+    // Current position
+    int x = x0;
+    int y = y0;
+
+    // Draw line
+    while (true)
+    {
+        SetPixel(x, y, color);
+
+        // Check if we've reached the end
+        if (x == x1 && y == y1)
+            break;
+
+        // Calculate error for next step
+        int error2 = error * 2;
+
+        // Step in x direction if needed
+        if (error2 > -dy)
+        {
+            error -= dy;
+            x += sx;
+        }
+
+        // Step in y direction if needed
+        if (error2 < dx)
+        {
+            error += dx;
+            y += sy;
+        }
+    }
+}
+
 void Framebuffer::Clear(const Color &color)
 {
     // Loop through each pixel and clear it by setting it to a certain color
