@@ -5,7 +5,7 @@ A 3D software renderer built from scratch in C++ without graphics APIs (no OpenG
 ## Features (Planned)
 
 - [x] Framebuffer and pixel rendering
-- [ ] Line drawing (Bresenham's algorithm)
+- [x] Line drawing (Bresenham's algorithm)
 - [ ] Triangle rasterization
 - [ ] 3D wireframe rendering
 - [ ] Z-buffering
@@ -44,3 +44,11 @@ Understanding graphics pipeline fundamentals before diving into OpenGL/game deve
 - Implemented pixel buffer with RGBA color support
 - Line and shape drawing
 - PNG export functionality
+
+### Milestone 2: Bresenhams line algorithm
+
+![First render output](docs/milestone_2/bresenhams-line-algorithm.png)
+
+- Implemented Bresenham's Algorithm
+- Created Draw function to draw via Algorithm
+- Drawing multiple lines via selected spots in the coordinate system
