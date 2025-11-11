@@ -23,21 +23,37 @@ void Framebuffer::SetPixel(int x, int y, const Color &color)
 
 void Framebuffer::DrawLine(int x0, int y0, int x1, int y1, const Color &color)
 {
-    int dx = x1 - x0;
-    int dy = y1 - y0;
+    // Calculate deltas
+    int dx = abs(x1 - x0);
+    int dy = abs(y1 - y0);
 
+    // Determine step direction for x and y
+    int sx = (x0 < x1) ? 1 : -1; // 1 if going right, -1 if going left
+    int sy = (x0 < y1) ? 1 : -1; // 1 if going down, -1 if going up
+
+    // Initialize error term
     int error = 0;
+
+    // Current position
+    int x = x0;
     int y = y0;
 
-    for (int x = x0; x <= x1; ++x)
+    // Draw line
+    while (true)
     {
         SetPixel(x, y, color);
 
-        error += dy;
-        if (error * 2 >= dx)
-        {
-            ++y;
-            error -= dx;
+        // Check if we've reached the end
+        if (x == x1 && y == y1)
+            break;
+
+        // Calculate error for next step
+        int error2 = error * 2;
+
+        // Step in x direction if needed
+        if (error2 < dx) {
+            error += dx;
+            y += sy;
         }
     }
 }
