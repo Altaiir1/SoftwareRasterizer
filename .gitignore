@@ -37,3 +37,4 @@ Makefile
 # Other
 *.log
 core
+docs/workflow.md
