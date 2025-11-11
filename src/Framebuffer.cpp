@@ -29,10 +29,10 @@ void Framebuffer::DrawLine(int x0, int y0, int x1, int y1, const Color &color)
 
     // Determine step direction for x and y
     int sx = (x0 < x1) ? 1 : -1; // 1 if going right, -1 if going left
-    int sy = (x0 < y1) ? 1 : -1; // 1 if going down, -1 if going up
+    int sy = (y0 < y1) ? 1 : -1; // 1 if going down, -1 if going up
 
     // Initialize error term
-    int error = 0;
+    int error = dx - dy;
 
     // Current position
     int x = x0;
@@ -51,7 +51,15 @@ void Framebuffer::DrawLine(int x0, int y0, int x1, int y1, const Color &color)
         int error2 = error * 2;
 
         // Step in x direction if needed
-        if (error2 < dx) {
+        if (error2 > -dy)
+        {
+            error -= dy;
+            x += sx;
+        }
+
+        // Step in y direction if needed
+        if (error2 < dx)
+        {
             error += dx;
             y += sy;
         }
