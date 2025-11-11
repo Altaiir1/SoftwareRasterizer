@@ -38,3 +38,5 @@ Makefile
 *.log
 core
 docs/workflow.md
+output/*.png
+!output/.gitkeep
