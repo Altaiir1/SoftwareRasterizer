@@ -21,6 +21,27 @@ void Framebuffer::SetPixel(int x, int y, const Color &color)
     m_pixels[index] = color;
 }
 
+void Framebuffer::DrawLine(int x0, int y0, int x1, int y1, const Color &color)
+{
+    int dx = x1 - x0;
+    int dy = y1 - y0;
+
+    int error = 0;
+    int y = y0;
+
+    for (int x = x0; x <= x1; ++x)
+    {
+        SetPixel(x, y, color);
+
+        error += dy;
+        if (error * 2 >= dx)
+        {
+            ++y;
+            error -= dx;
+        }
+    }
+}
+
 void Framebuffer::Clear(const Color &color)
 {
     // Loop through each pixel and clear it by setting it to a certain color

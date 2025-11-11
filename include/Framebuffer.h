@@ -15,6 +15,8 @@ public:
 
     void SetPixel(int x, int y, const Color &color);
 
+    void DrawLine(int x0, int y0, int x1, int y1, const Color &color);
+
     void Clear(const Color &color);
 
     bool SaveToPNG(const char *filename);
