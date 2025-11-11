@@ -51,7 +51,7 @@ int main()
     */
 
     // Save to file
-    if (buffer.SaveToPNG("final.png"))
+    if (buffer.SaveToPNG("output/output.png"))
     {
         std::cout << "Image saved to output.png..." << '\n';
     }
