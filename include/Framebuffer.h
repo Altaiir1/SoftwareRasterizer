@@ -17,6 +17,8 @@ public:
 
     void DrawLine(int x0, int y0, int x1, int y1, const Color &color);
 
+    void DrawTriangle(int x0, int y0, int x1, int y1, int x2, int y2, const Color& color);
+
     void Clear(const Color &color);
 
     bool SaveToPNG(const char *filename);
