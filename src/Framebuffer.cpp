@@ -1,7 +1,9 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
-#include "stb_image_write.h"
 
+#include "stb_image_write.h"
 #include "Framebuffer.h"
+
+#include <algorithm>
 
 Framebuffer::Framebuffer(int width, int height) : m_width(width), m_height(height)
 {
@@ -66,17 +68,42 @@ void Framebuffer::DrawLine(int x0, int y0, int x1, int y1, const Color &color)
     }
 }
 
-void Framebuffer::DrawTriangle(int x0, int y0, int x1, int y1, int x2, int y2, const Color &color)
+static int InterpolateX(int x0, int y0, int x1, int y1, int y)
 {
-    // Just draw the 3 edges for now
-    DrawLine(x0, y0, x1, y1, color);
-    DrawLine(x1, y1, x2, y2, color);
-    DrawLine(x2, y2, x0, y0, color);
+    if (y1 == y0) return x0;
+    return x0 + (x1 - x0) * (y - y0) / (y1 - y0);
+}
+
+void Framebuffer::DrawTriangle(int x0, int y0, int x1, int y1, int x2, int y2, const Color& color)
+{
+    // 1. Sorts vertices by Y
+    if (y0 > y1) { std::swap(x0, x1); std::swap(y0, y1); }
+    if (y0 > y2) { std::swap(x0, x2); std::swap(y0, y2); }
+    if (y1 > y2) { std::swap(x1, x2); std::swap(y1, y2); }
+
+    // 2. Checks for degenerate case
+    if (y0 == y2) return;
+
+    // 3. Fills upper half
+    for (int y = y0; y <= y1; y++) {
+        int xa = InterpolateX(x0, y0, x2, y2, y);
+        int xb = InterpolateX(x0, y0, x1, y1, y);
+        if (xa > xb) std::swap(xa, xb);
+        DrawLine(xa, y, xb, y, color);
+    }
+
+    // 4. Fills lower half
+    for (int y = y1; y <= y2; y++) {
+        int xa = InterpolateX(x0, y0, x2, y2, y);
+        int xb = InterpolateX(x1, y1, x2, y2, y);
+        if (xa > xb) std::swap(xa, xb);
+        DrawLine(xa, y, xb, y, color);
+    }
 }
 
 void Framebuffer::Clear(const Color &color)
 {
-    // Loop through each pixel and clear it by setting it to a certain color
+    // Loops through each pixel and clear it by setting it to a certain color
     for (auto &pixel : m_pixels)
     {
         pixel = color;
