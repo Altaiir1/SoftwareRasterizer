@@ -39,7 +39,7 @@ Understanding graphics pipeline fundamentals before diving into OpenGL/game deve
 
 ### Milestone 1: Framebuffer Implementation
 
-![First render output](docs/milestone_1/framebuffer-implementation.png)
+![Framebuffer](docs/milestone_1/framebuffer-implementation.png)
 
 - Implemented pixel buffer with RGBA color support
 - Line and shape drawing
@@ -47,7 +47,7 @@ Understanding graphics pipeline fundamentals before diving into OpenGL/game deve
 
 ### Milestone 2: Bresenhams line algorithm
 
-![Second render output](docs/milestone_2/bresenhams-line-algorithm.png)
+![Bresenham_algoritm](docs/milestone_2/bresenhams-line-algorithm.png)
 
 - Implemented Bresenham's Algorithm
 - Created Draw function to draw via Algorithm
@@ -55,8 +55,8 @@ Understanding graphics pipeline fundamentals before diving into OpenGL/game deve
 
 ### Milestone 3: Triangle Rasterization
 
-![Third render output](docs/milestone_3/triangle-rasterization.png)
+![Filled triangle](docs/milestone_3/triangle-rasterization.png)
 
-- Implemented Triangle Rasterization
-- Draw Triangles
-- Used Algorithm & Interpolation to fill Triangles
+- Implemented scanline filling algorithm
+- Vertex sorting and edge interpolation
+- Handles all triangle orientations
