@@ -46,9 +46,9 @@ int main()
     }
 
     // Save to file
-    if (buffer.SaveToPNG("../output/wireframe_3D_Cube.png"))
+    if (buffer.SaveToPNG("../output/output.png"))
     {
-        std::cout << "Image saved to wireframe_3D_Cube.png..." << '\n';
+        std::cout << "Image saved to output/..." << '\n';
     }
     else
     {
