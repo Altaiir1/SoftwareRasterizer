@@ -7,7 +7,7 @@ A 3D software renderer built from scratch in C++ without graphics APIs (no OpenG
 - [x] Framebuffer and pixel rendering
 - [x] Line drawing (Bresenham's algorithm)
 - [x] Triangle rasterization
-- [ ] 3D wireframe rendering
+- [x] 3D wireframe rendering
 - [ ] Z-buffering
 - [ ] Lighting and shading
 - [ ] Texture mapping
@@ -60,3 +60,10 @@ Understanding graphics pipeline fundamentals before diving into OpenGL/game deve
 - Implemented scanline filling algorithm
 - Vertex sorting and edge interpolation
 - Handles all triangle orientations
+
+### Milestone 4: 3D wireframe rendering
+
+![Filled triangle](docs/milestone_4/wireframe_3D_Cube.png)
+
+- Implemented Vector, Mesh and Matrix functionality
+- using the new functionality to create a Wireframe cube
