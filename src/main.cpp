@@ -1,27 +1,54 @@
 #include <iostream>
 
 #include "Framebuffer.h"
+#include "Mesh.h"
+#include "Matrix4.h"
 
 int main()
 {
-    std::cout << "Creating framebuffer..." << '\n';
+    std::cout << "Creating 3D scene..." << std::endl;
 
-    // Create 800x600 framebuffer
     Framebuffer buffer(800, 600);
     buffer.Clear({20, 20, 40, 255});
 
-    Color white = {255, 255, 255, 255};
-    Color red = {255, 0, 0, 255};
-    Color green = {0, 255, 0, 255};
+    // Create a cube
+    Mesh cube = Mesh::CreateCube(2.0f);
 
-    buffer.DrawTriangle(400, 100, 300, 300, 500, 300, white);
-    buffer.DrawTriangle(200, 400, 250, 500, 150, 500, red);
-    buffer.DrawTriangle(600, 200, 700, 400, 550, 350, green);
+    // Create transformation matrices
+    Matrix4 translation = Matrix4::Translation(0, 0, -5);  // Move 5 units away
+    Matrix4 projection = Matrix4::Perspective(3.14159f / 4.0f, 800.0f / 600.0f, 0.1f, 100.0f);
+
+    Matrix4 transform = projection * translation;
+
+    // Transform and project vertices
+    std::vector<Vector3> projected;
+    for (const auto& vertex : cube.vertices) {
+        Vector3 transformed = transform.Transform(vertex);
+
+        // Convert from normalized device coordinates [-1, 1] to screen [0, width/height]
+        int screenX = static_cast<int>((transformed.x + 1.0f) * 400.0f);
+        int screenY = static_cast<int>((1.0f - transformed.y) * 300.0f);
+
+        projected.push_back(Vector3(screenX, screenY, transformed.z));
+    }
+
+    // Draw edges
+    Color white = {255, 255, 255, 255};
+    for (size_t i = 0; i < cube.indices.size(); i += 2) {
+        int idx0 = cube.indices[i];
+        int idx1 = cube.indices[i + 1];
+
+        buffer.DrawLine(
+            static_cast<int>(projected[idx0].x), static_cast<int>(projected[idx0].y),
+            static_cast<int>(projected[idx1].x), static_cast<int>(projected[idx1].y),
+            white
+        );
+    }
 
     // Save to file
     if (buffer.SaveToPNG("../output/output.png"))
     {
-        std::cout << "Image saved to output.png..." << '\n';
+        std::cout << "Image saved to output/..." << '\n';
     }
     else
     {
