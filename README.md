@@ -63,7 +63,7 @@ Understanding graphics pipeline fundamentals before diving into OpenGL/game deve
 
 ### Milestone 4: 3D wireframe rendering
 
-![Filled triangle](docs/milestone_4/wireframe_3D_Cube.png)
+![Wireframe_Mesh](docs/milestone_4/wireframe_3D_Mesh.png)
 
 - Implemented Vector, Mesh and Matrix functionality
-- using the new functionality to create a Wireframe cube
+- using the new functionality to create a Wireframe Mesh
